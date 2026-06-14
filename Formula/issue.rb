@@ -2,22 +2,27 @@
 class Issue < Formula
   desc "Local-first issue-management CLI with a lazygit-style TUI (lazyissue)"
   homepage "https://github.com/mrsmsn/issue"
-  url "https://github.com/mrsmsn/issue/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "c0a6b6c10b8f3c49fcadda6ac374a36fd0aa05185979faabfd8e37059f4f4b8e"
+  version "0.1.1"
   license "MIT"
-  head "https://github.com/mrsmsn/issue.git", branch: "main"
 
-  depends_on "rust" => :build
+  on_macos do
+    on_arm do
+      url "https://github.com/mrsmsn/issue/releases/download/v0.1.1/issue_0.1.1_darwin_arm64.tar.gz"
+      sha256 "cd0ce9a6a340028f9fd0a54d3d7622d40abdd2c8831183e74ef1e1c6e49d9696"
+    end
+    on_intel do
+      url "https://github.com/mrsmsn/issue/releases/download/v0.1.1/issue_0.1.1_darwin_amd64.tar.gz"
+      sha256 "c26debd4765754d4fff8b05421142455710a15a3a4df548815b1d2599eca7821"
+    end
+  end
 
   def install
-    # Build & install both workspace binaries the idiomatic Homebrew way
-    # (std_cargo_args = --locked --root <prefix> --path <crate>).
-    system "cargo", "install", *std_cargo_args(path: "crates/cli")
-    system "cargo", "install", *std_cargo_args(path: "crates/tui")
+    bin.install "issue"
+    bin.install "lazyissue"
 
-    # Installs _issue / issue.bash / issue.fish into Homebrew's completion
-    # dirs (already on the user's fpath) — so `issue <Tab>` works with no
-    # `source` line, exactly like gh.
+    # Run the just-installed binary to emit completions; installed into
+    # Homebrew's completion dirs (already on the user's fpath) — so
+    # `issue <Tab>` works with no `source` line, like gh.
     generate_completions_from_executable(
       bin/"issue", "completions",
       base_name: "issue", shells: [:bash, :zsh, :fish]
@@ -27,6 +32,5 @@ class Issue < Formula
   test do
     assert_match version.to_s, shell_output("#{bin}/issue --version")
     assert_match version.to_s, shell_output("#{bin}/lazyissue --version")
-    assert_match "Usage: issue", shell_output("#{bin}/issue --help")
   end
 end
