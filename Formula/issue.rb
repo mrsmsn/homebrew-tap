@@ -2,17 +2,17 @@
 class Issue < Formula
   desc "Local-first issue-management CLI with a lazygit-style TUI (lazyissue)"
   homepage "https://github.com/mrsmsn/issue"
-  version "0.1.1"
+  version "0.1.2"
   license "MIT"
 
   on_macos do
     on_arm do
-      url "https://github.com/mrsmsn/issue/releases/download/v0.1.1/issue_0.1.1_darwin_arm64.tar.gz"
-      sha256 "cd0ce9a6a340028f9fd0a54d3d7622d40abdd2c8831183e74ef1e1c6e49d9696"
+      url "https://github.com/mrsmsn/issue/releases/download/v0.1.2/issue_0.1.2_darwin_arm64.tar.gz"
+      sha256 "14f09244b08389f06741c6d45d6bb9dbf47da0dff23b70ec2c3998e885c79fcb"
     end
     on_intel do
-      url "https://github.com/mrsmsn/issue/releases/download/v0.1.1/issue_0.1.1_darwin_amd64.tar.gz"
-      sha256 "c26debd4765754d4fff8b05421142455710a15a3a4df548815b1d2599eca7821"
+      url "https://github.com/mrsmsn/issue/releases/download/v0.1.2/issue_0.1.2_darwin_amd64.tar.gz"
+      sha256 "816548862b38d04cd4f42dc03ce6eca812e64566027e54100d2537ce42620510"
     end
   end
 
